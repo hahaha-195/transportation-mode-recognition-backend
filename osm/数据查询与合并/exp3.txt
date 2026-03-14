@@ -1,0 +1,39 @@
+/*
+  GeoLife 交通方式识别模型 - 最终 OSM 实体查询脚本
+  查询范围：北京市 (area.a)
+*/
+[out:json][timeout:90];
+
+// 1. 查找北京市的 area ID 并存入变量 .a
+area[name="北京市"]->.a;
+
+(
+  // === A. 公共交通站点（Nodes）===
+  node(area.a)[highway=bus_stop];          // 公交站
+  node(area.a)[railway=station];           // 火车站/通用车站
+  node(area.a)[public_transport=station];  // 通用公共交通站（包含地铁、公交）
+  node(area.a)[railway=subway_entrance];   // 地铁站入口（最精确的位置）
+
+  // === B. 交通路网（Ways）===
+  way(area.a)[highway=footway];            // 人行道
+  way(area.a)[highway=cycleway];           // 自行车道
+  way(area.a)[highway=primary];            // 主要公路
+  way(area.a)[highway=secondary];          // 次要公路
+  way(area.a)[highway=tertiary];           // 城市道路
+  way(area.a)[highway=residential];        // 居住区道路
+  way(area.a)[maxspeed];                   // 带有速度限制标签的道路（新增：用于速度推断）
+
+  // === C. 交通辅助 POI（Nodes）===
+  node(area.a)[amenity=parking];           // 停车场/库
+  node(area.a)[amenity=bicycle_rental];    // 共享单车点（新增：用于骑行推断）
+  node(area.a)[amenity=taxi];              // 出租车停靠点
+
+  // === D. 公交/地铁线路（Relations）===
+  relation(area.a)[route=bus];             // 公交线路（新增）
+  relation(area.a)[route=subway];          // 地铁线路（新增）
+);
+
+// 3. 输出所有结果
+out body;
+>;
+out skel qt;

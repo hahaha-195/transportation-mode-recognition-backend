@@ -1,0 +1,27 @@
+[out:json][timeout:90];
+
+// 1. 查找北京市的 area ID 并存入变量 .a
+area[name="北京市"]->.a;
+
+// 2. 在这个区域 (.a) 内进行实体查询
+(
+  // 公共交通站点 (Nodes)
+  node(area.a)[highway=bus_stop];
+  node(area.a)[railway=station];
+
+  // 交通路网 (Ways)
+  way(area.a)[highway=footway];
+  way(area.a)[highway=cycleway];
+  way(area.a)[highway=primary];
+  way(area.a)[highway=secondary];
+  way(area.a)[highway=tertiary];
+  way(area.a)[highway=residential];
+
+  // 辅助 POI (Nodes)
+  node(area.a)[amenity=parking];
+);
+
+// 3. 输出结果
+out body;
+>;
+out skel qt;

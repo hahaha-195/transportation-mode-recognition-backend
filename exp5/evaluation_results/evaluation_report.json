@@ -1,0 +1,57 @@
+{
+    "Airplane": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+    },
+    "Bike": {
+        "precision": 0.5789473684210527,
+        "recall": 0.4750830564784053,
+        "f1-score": 0.5218978102189781,
+        "support": 301.0
+    },
+    "Bus": {
+        "precision": 0.6203208556149733,
+        "recall": 0.6373626373626373,
+        "f1-score": 0.6287262872628726,
+        "support": 364.0
+    },
+    "Car & taxi": {
+        "precision": 0.5665024630541872,
+        "recall": 0.4323308270676692,
+        "f1-score": 0.4904051172707889,
+        "support": 266.0
+    },
+    "Subway": {
+        "precision": 0.5263157894736842,
+        "recall": 0.17857142857142858,
+        "f1-score": 0.26666666666666666,
+        "support": 112.0
+    },
+    "Train": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 33.0
+    },
+    "Walk": {
+        "precision": 0.6861233480176211,
+        "recall": 0.9002890173410405,
+        "f1-score": 0.77875,
+        "support": 692.0
+    },
+    "accuracy": 0.6401129943502825,
+    "macro avg": {
+        "precision": 0.4254585463687883,
+        "recall": 0.37480528097445437,
+        "f1-score": 0.3837779830599009,
+        "support": 1770.0
+    },
+    "weighted avg": {
+        "precision": 0.6127086608814956,
+        "recall": 0.6401129943502825,
+        "f1-score": 0.6130830719210704,
+        "support": 1770.0
+    }
+}
