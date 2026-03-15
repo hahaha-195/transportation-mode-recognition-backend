@@ -1,0 +1,12 @@
+**/cache/
+**/*.pkl
+**/*.geojson
+**/*.pth
+**/*.pickle
+data/
+__pycache__/
+*.pyc
+.git
+.gitignore
+README.md
+.dockerignore
