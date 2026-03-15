@@ -6,6 +6,8 @@ Exp2 真实模型预测服务 (FastAPI)
 
 import os
 import sys
+import requests
+import zipfile  # 新增：用于解压模型文件
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +23,26 @@ if PROJECT_ROOT not in sys.path:
 EXP2_PATH = os.path.join(PROJECT_ROOT, 'exp2')
 if EXP2_PATH not in sys.path:
     sys.path.insert(0, EXP2_PATH)
+
+# ========== 模型文件自动下载（新增）==========
+MODEL_ZIP_URL = "https://github.com/user-attachments/files/26001145/exp2_model.zip"  # 你的实际下载链接
+MODEL_DIR = os.path.join(PROJECT_ROOT, "exp2", "checkpoints")
+MODEL_PATH = os.path.join(MODEL_DIR, "exp2_model.pth")
+ZIP_PATH = "/tmp/exp2_model.zip"
+
+if not os.path.exists(MODEL_PATH):
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    print("⬇️ 正在下载模型压缩包...")
+    response = requests.get(MODEL_ZIP_URL, stream=True)
+    with open(ZIP_PATH, 'wb') as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+    print("✅ 下载完成，正在解压...")
+    with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
+        zip_ref.extractall(MODEL_DIR)
+    os.remove(ZIP_PATH)
+    print(f"✅ 模型解压至 {MODEL_DIR}")
+
 # 尝试导入所需模块
 try:
     # from common.feature_extraction import FeatureExtractor
@@ -49,7 +71,7 @@ class DummyKnowledgeGraph:
 
 # ========== 初始化 ==========
 # 模型检查点路径
-MODEL_PATH = os.path.join(PROJECT_ROOT, "exp2", "checkpoints", "exp2_model.pth")
+# MODEL_PATH = os.path.join(PROJECT_ROOT, "exp2", "checkpoints", "exp2_model.pth")  # 已由下载代码定义
 
 # 加载模型
 try:
