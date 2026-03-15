@@ -1,12 +1,35 @@
-**/cache/
-**/*.pkl
-**/*.geojson
-**/*.pth
-**/*.pickle
+# 排除所有数据目录
 data/
+**/data/
+
+# 排除所有缓存目录
+cache/
+**/cache/
+
+# 排除所有大文件类型
+*.pkl
+*.pickle
+*.pth
+*.pt
+*.ckpt
+*.geojson
+*.csv
+*.zip
+*.tar
+*.gz
+
+# 排除Python缓存和虚拟环境
 __pycache__/
 *.pyc
+.venv
+venv/
+env/
+
+# 排除版本控制
 .git
 .gitignore
+
+# 排除文档
 README.md
-.dockerignore
+*.md
+*.txt
